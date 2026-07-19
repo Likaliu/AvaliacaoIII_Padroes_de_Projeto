@@ -92,5 +92,3 @@ Classe | Papel (Participante):
   `avaliacao1.*` e `avaliacao2.*` são o motor técnico reaproveitado das
   avaliações I e II (Builder de `Timeline`, Prototype/`Forkable`, Decorator
   de trailers/créditos, Adapter de `HDDBinaryReader`) — apenas dão suporte às classes comerciais.
-
----
