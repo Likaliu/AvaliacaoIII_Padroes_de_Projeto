@@ -4,11 +4,15 @@ import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
 
 public class MP3 implements PlaylistItem {
 	
-    public String nome;
-    public double tamanhoMegaBytes;
+    private final String nome;
+    private final double tamanhoMegaBytes;
 
     public MP3(String nome, double tamanho) { 
     	
+		if (nome == null || nome.trim().isEmpty())
+			throw new IllegalArgumentException("Nome do MP3 e obrigatorio");
+		if (tamanho < 0)
+			throw new IllegalArgumentException("Tamanho do MP3 nao pode ser negativo");
         this.nome = nome; 
         this.tamanhoMegaBytes = tamanho; 
     }

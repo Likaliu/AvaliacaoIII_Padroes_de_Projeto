@@ -10,7 +10,7 @@ import br.edu.ifba.inf011.avaliacao3.visitor.RelatorioNomesVisitor;
 
 public class Playlist {
 	
-	private List<PlaylistItem> items;
+	private final List<PlaylistItem> items;
 	
 	public Playlist() {
 		
@@ -19,11 +19,15 @@ public class Playlist {
 	
 	public void addItem(PlaylistItem item) {
 		
+		if (item == null)
+			throw new IllegalArgumentException("Item da playlist nao pode ser nulo");
 		this.items.add(item);
 	}
 
 	public void aplicar(PlaylistVisitor visitor) {
 		
+		if (visitor == null)
+			throw new IllegalArgumentException("Visitor da playlist nao pode ser nulo");
 		for (PlaylistItem item : this.items) {
 			item.accept(visitor);
 		}

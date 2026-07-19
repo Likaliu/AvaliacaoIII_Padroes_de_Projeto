@@ -16,6 +16,12 @@ public class Filme implements ItemVendaComponent {
 
 	public Filme(String titulo, Double preco, Timeline timeline) {
 		
+		if (titulo == null || titulo.trim().isEmpty())
+			throw new IllegalArgumentException("Titulo do filme e obrigatorio");
+		if (preco == null || preco < 0)
+			throw new IllegalArgumentException("Preco do filme nao pode ser negativo");
+		if (timeline == null)
+			throw new IllegalArgumentException("Timeline do filme nao pode ser nula");
     	this.titulo = titulo;
         this.preco = preco;
         this.timeline = timeline;

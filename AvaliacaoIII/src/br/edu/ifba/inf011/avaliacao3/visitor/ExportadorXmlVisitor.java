@@ -20,20 +20,20 @@ public class ExportadorXmlVisitor implements PlaylistVisitor {
     @Override
     public void visit(Filme filme) {
     	
-        xml.append("<filme titulo=\"").append(filme.getTitulo()).append("\"/>\n");
+        xml.append("<filme titulo=\"").append(escapeXml(filme.getTitulo())).append("\"/>\n");
     }
 
     @Override
     public void visit(Episodio episodio) {
     	
-        xml.append("<episodio titulo=\"").append(episodio.getTitulo())
+        xml.append("<episodio titulo=\"").append(escapeXml(episodio.getTitulo()))
            .append("\" numero=\"").append(episodio.getNumero()).append("\"/>\n");
     }
 
     @Override
     public void visit(Serie serie) {
     	
-        xml.append("\t<serie titulo=\"").append(serie.getTitulo())
+        xml.append("\t<serie titulo=\"").append(escapeXml(serie.getTitulo()))
            .append("\" temporada=\"").append(serie.getTemporada()).append("\">\n");
         for (Episodio episodio : serie.getEpisodios()) {
             episodio.accept(this);
@@ -44,7 +44,7 @@ public class ExportadorXmlVisitor implements PlaylistVisitor {
     @Override
     public void visit(Pacote pacote) {
     	
-        xml.append("<pacote titulo=\"").append(pacote.getTitulo()).append("\">\n");
+        xml.append("<pacote titulo=\"").append(escapeXml(pacote.getTitulo())).append("\">\n");
         for (ItemVendaComponent item : pacote.getItens()) {
             item.accept(this);
         }
@@ -54,13 +54,22 @@ public class ExportadorXmlVisitor implements PlaylistVisitor {
     @Override
     public void visit(MP3 mp3) {
     	
-        xml.append("<mp3 nome=\"").append(mp3.getNome()).append("\"/>\n");
+        xml.append("<mp3 nome=\"").append(escapeXml(mp3.getNome())).append("\"/>\n");
     }
 
     @Override
     public void visit(Video video) {
     	
-        xml.append("  <video nome=\"").append(video.getNome())
-           .append("\" link=\"").append(video.getLink()).append("\"/>\n");
+        xml.append("  <video nome=\"").append(escapeXml(video.getNome()))
+           .append("\" link=\"").append(escapeXml(video.getLink())).append("\"/>\n");
     }
+
+  private String escapeXml(String valor) {
+		
+    return valor.replace("&", "&amp;")
+        .replace("\"", "&quot;")
+        .replace("'", "&apos;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;");
+  }
 }

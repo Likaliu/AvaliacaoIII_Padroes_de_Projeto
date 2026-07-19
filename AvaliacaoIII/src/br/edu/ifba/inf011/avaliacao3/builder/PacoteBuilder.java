@@ -22,6 +22,8 @@ public class PacoteBuilder {
 
     public static PacoteBuilder criar(String titulo) {
     	
+		if (titulo == null || titulo.trim().isEmpty())
+			throw new IllegalArgumentException("Titulo do pacote e obrigatorio");
         PacoteBuilder builder = new PacoteBuilder();
         builder.titulo = titulo;
         return builder;
@@ -47,12 +49,14 @@ public class PacoteBuilder {
 
     public PacoteBuilder comItem(ItemVendaComponent item) {
     	
+		if (item == null)
+			throw new IllegalArgumentException("Item do pacote nao pode ser nulo");
         itens.add(item);
         return this;
     }
 
     public Pacote build() {
     	
-        return new Pacote(titulo, itens);
+	    return new Pacote(titulo, new ArrayList<ItemVendaComponent>(itens));
     }
 }

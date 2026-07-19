@@ -5,12 +5,18 @@ import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
 
 public class Video implements PlaylistItem {
 	
-    public String nome;
-    public double tamanhoMegaBytes;
-    public String link;
+    private final String nome;
+    private final double tamanhoMegaBytes;
+    private final String link;
 
     public Video(String nome, double tamanho, String link) { 
     	
+		if (nome == null || nome.trim().isEmpty())
+			throw new IllegalArgumentException("Nome do video e obrigatorio");
+		if (tamanho < 0)
+			throw new IllegalArgumentException("Tamanho do video nao pode ser negativo");
+		if (link == null || link.trim().isEmpty())
+			throw new IllegalArgumentException("Link do video e obrigatorio");
         this.nome = nome; 
         this.tamanhoMegaBytes = tamanho; 
         this.link = link;

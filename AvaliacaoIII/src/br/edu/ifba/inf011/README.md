@@ -92,3 +92,44 @@ Classe | Papel (Participante):
   `avaliacao1.*` e `avaliacao2.*` são o motor técnico reaproveitado das
   avaliações I e II (Builder de `Timeline`, Prototype/`Forkable`, Decorator
   de trailers/créditos, Adapter de `HDDBinaryReader`) — apenas dão suporte às classes comerciais.
+
+---
+
+## Qualidade Arquitetural e SOLID
+
+- **Open/Closed Principle:** novas operações sobre playlist são adicionadas por
+  novos `PlaylistVisitor`, sem alterar `Filme`, `Serie`, `Pacote`, `MP3` ou
+  `Video`. Para venda, novos itens podem implementar `ItemVendaComponent` sem
+  alterar `CarrinhoDeCompras`.
+- **Single Responsibility Principle:** regras de composição ficam em `Pacote`,
+  construção fluente em `PacoteBuilder`, agregação de compra em
+  `CarrinhoDeCompras` e operações analíticas/exportadoras nos Visitors.
+- **Liskov Substitution Principle:** `CarrinhoDeCompras` e `Pacote` dependem do
+  contrato `ItemVendaComponent`, tratando folhas e compostos de forma uniforme.
+- **Interface Segregation Principle:** `PlaylistItem` contém apenas `accept`, e
+  `ItemVendaComponent` adiciona somente as operações necessárias para venda
+  (`getTitulo`, `getPreco`, `getDuracao`).
+- **Dependency Inversion Principle:** clientes trabalham principalmente com
+  abstrações (`ItemVendaComponent`, `PlaylistItem`, `PlaylistVisitor`) em vez de
+  tipos concretos.
+
+### Cuidados de Clean Code adotados
+
+- Coleções internas de `Pacote` e `Serie` não são expostas para alteração direta.
+- `PacoteBuilder` cria pacotes usando cópia defensiva dos itens adicionados.
+- Entradas inválidas (`null`, títulos vazios, preços negativos e tamanhos
+  negativos) são rejeitadas cedo por exceções claras.
+- Números mágicos relevantes foram nomeados como constantes, como o fator de
+  desconto de pacotes/séries.
+- `ExportadorXmlVisitor` escapa caracteres especiais ao gerar XML.
+
+### Trade-offs conhecidos
+
+- O `Visitor` facilita adicionar novas operações, mas exige alterar a interface
+  `PlaylistVisitor` e os visitors concretos se um novo tipo de item de playlist
+  for criado. Essa escolha é adequada porque o enunciado enfatiza novas operações
+  analíticas sobre um conjunto conhecido de tipos.
+- O desconto está mantido nas classes comerciais porque é uma regra fixa do
+  cenário. Se existissem campanhas ou políticas variáveis, o próximo padrão GoF
+  recomendado seria `Strategy` para isolar a política de precificação.
+

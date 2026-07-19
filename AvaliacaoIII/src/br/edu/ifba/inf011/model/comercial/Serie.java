@@ -1,6 +1,7 @@
 package br.edu.ifba.inf011.model.comercial;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import br.edu.ifba.inf011.avaliacao3.composite.ItemVendaComponent;
@@ -16,12 +17,18 @@ import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
  */
 public class Serie implements ItemVendaComponent {
 
+  private static final double FATOR_DESCONTO_SERIE = 0.9;
+
 	protected String titulo;
 	protected Integer temporada;
     protected List<Episodio> episodios;
     
     public Serie(String titulo, Integer temporada) {
     	
+		if (titulo == null || titulo.trim().isEmpty())
+			throw new IllegalArgumentException("Titulo da serie e obrigatorio");
+		if (temporada == null || temporada <= 0)
+			throw new IllegalArgumentException("Temporada deve ser positiva");
     	this.titulo = titulo;
     	this.temporada = temporada;
     	this.episodios = new ArrayList<Episodio>();
@@ -36,6 +43,8 @@ public class Serie implements ItemVendaComponent {
 
     public void addEpisodio(Episodio episodio) {
     	
+		if (episodio == null)
+			throw new IllegalArgumentException("Episodio nao pode ser nulo");
     	this.episodios.add(episodio);
     }
     
@@ -49,7 +58,7 @@ public class Serie implements ItemVendaComponent {
     public Double getPreco() {
     	
         double soma = this.episodios.stream().mapToDouble(Episodio::getPreco).sum();
-        return soma * 0.9;
+        return soma * FATOR_DESCONTO_SERIE;
     }
         
     @Override
@@ -71,6 +80,6 @@ public class Serie implements ItemVendaComponent {
 
 	public List<Episodio> getEpisodios() {
 		
-		return episodios;
+    return Collections.unmodifiableList(episodios);
 	}
 }

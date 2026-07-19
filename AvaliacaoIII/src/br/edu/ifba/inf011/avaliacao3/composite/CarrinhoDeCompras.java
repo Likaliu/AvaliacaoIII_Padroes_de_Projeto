@@ -9,6 +9,8 @@ public class CarrinhoDeCompras {
 
     public void adicionar(ItemVendaComponent item) {
     	
+		if (item == null)
+			throw new IllegalArgumentException("Item do carrinho nao pode ser nulo");
         itens.add(item);
     }
 

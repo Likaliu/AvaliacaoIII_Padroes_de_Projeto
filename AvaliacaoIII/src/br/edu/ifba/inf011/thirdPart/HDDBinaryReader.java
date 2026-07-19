@@ -2,7 +2,7 @@ package br.edu.ifba.inf011.thirdPart;
 
 import java.util.Random;
 
-//--- CLASSE PROPRIETÁRIA DE BAIXO NÍVEL (Adaptee) ---
+//--- CLASSE PROPRIETARIA DE BAIXO NIVEL (Adaptee) ---
 public class HDDBinaryReader {
 
 	protected byte[] rawBuffer; 
@@ -25,7 +25,7 @@ public class HDDBinaryReader {
      */	
     protected Integer loadHeaderMetadata(String path) {
     	
-        this.cachedDuration = new Random().nextInt(60, 1800); 
+        this.cachedDuration = 60 + new Random().nextInt(1740); 
         return this.cachedDuration;
     }
     

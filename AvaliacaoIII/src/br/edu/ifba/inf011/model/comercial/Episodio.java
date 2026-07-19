@@ -17,6 +17,14 @@ public class Episodio implements ItemVendaComponent {
 
 	public Episodio(String titulo, Double preco, Integer numero, Timeline timeline) {
 		
+		if (titulo == null || titulo.trim().isEmpty())
+			throw new IllegalArgumentException("Titulo do episodio e obrigatorio");
+		if (preco == null || preco < 0)
+			throw new IllegalArgumentException("Preco do episodio nao pode ser negativo");
+		if (numero == null || numero <= 0)
+			throw new IllegalArgumentException("Numero do episodio deve ser positivo");
+		if (timeline == null)
+			throw new IllegalArgumentException("Timeline do episodio nao pode ser nula");
 		this.titulo = titulo;
 		this.preco = preco;
 		this.timeline = timeline;
