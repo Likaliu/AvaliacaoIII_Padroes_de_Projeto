@@ -10,45 +10,45 @@ import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
  */
 public class Episodio implements ItemVendaComponent {
 
-	private String titulo;
-	private Double preco;
-	private Timeline timeline;
-	private Integer numero;
+    private String titulo;
+    private Double preco;
+    private Timeline timeline;
+    private Integer numero;
 
-	public Episodio(String titulo, Double preco, Integer numero, Timeline timeline) {
-		
-		this.titulo = titulo;
-		this.preco = preco;
-		this.timeline = timeline;
-		this.numero = numero;
-	}
+    public Episodio(String titulo, Double preco, Integer numero, Timeline timeline) {
+        
+        this.titulo = titulo;
+        this.preco = preco;
+        this.timeline = timeline;
+        this.numero = numero;
+    }
 
-	@Override
-	public Double getPreco() {
-		
-		return this.preco;
-	}
+    @Override
+    public Double getPreco() {
+        
+        return this.preco;
+    }
 
-	@Override
-	public Integer getDuracao() {
-		
-		return this.timeline.getDurationInSeconds();
-	}
+    @Override
+    public Integer getDuracao() {
+        
+        return this.timeline.getDurationInSeconds();
+    }
 
-	@Override
-	public String getTitulo() {
-		
-		return this.titulo;
-	}
+    @Override
+    public String getTitulo() {
+        
+        return this.titulo;
+    }
 
-	public Integer getNumero() {
-		
-		return this.numero;
-	}
+    public Integer getNumero() {
+        
+        return this.numero;
+    }
 
-	@Override
-	public void accept(PlaylistVisitor visitor) {
-		
-		visitor.visit(this);
-	}
+    @Override
+    public void accept(PlaylistVisitor visitor) {
+        
+        visitor.visit(this);
+    }
 }

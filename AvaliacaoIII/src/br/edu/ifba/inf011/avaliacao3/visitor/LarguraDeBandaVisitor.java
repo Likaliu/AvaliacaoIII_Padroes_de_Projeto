@@ -14,37 +14,36 @@ public class LarguraDeBandaVisitor implements PlaylistVisitor {
     private double totalMegaBytes = 0;
 
     public Double getTotalMegaBytes() {
-    	
         return totalMegaBytes;
     }
 
-    @Override public void visit(Filme filme) {
-    	
+    @Override 
+    public void visit(Filme filme) {
         totalMegaBytes += filme.getDuracao() * MEGABYTES_POR_SEGUNDO;
     }
 
-    @Override public void visit(Episodio episodio) {
-    	
+    @Override 
+    public void visit(Episodio episodio) {
         totalMegaBytes += episodio.getDuracao() * MEGABYTES_POR_SEGUNDO;
     }
 
-    @Override public void visit(Serie serie) {
-    	
-        totalMegaBytes += serie.getDuracao() * MEGABYTES_POR_SEGUNDO;
+    @Override 
+    public void visit(Serie serie) {
+        // Deixamos vazio porque os Episodios de dentro da serie já serão visitados individualmente
     }
 
-    @Override public void visit(Pacote pacote) {
-    	
-        totalMegaBytes += pacote.getDuracao() * MEGABYTES_POR_SEGUNDO;
+    @Override 
+    public void visit(Pacote pacote) {
+        // Deixamos vazio porque os itens comerciais de dentro do pacote já serão visitados individualmente
     }
 
-    @Override public void visit(MP3 mp3) {
-    	
+    @Override 
+    public void visit(MP3 mp3) {
         totalMegaBytes += mp3.getTamanhoMegaBytes();
     }
 
-    @Override public void visit(Video video) {
-    	
+    @Override 
+    public void visit(Video video) {
         totalMegaBytes += video.getTamanhoMegaBytes();
     }
 }

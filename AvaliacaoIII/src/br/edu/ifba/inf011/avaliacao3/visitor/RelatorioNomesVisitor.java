@@ -12,46 +12,39 @@ import br.edu.ifba.inf011.model.playlist.Video;
 
 public class RelatorioNomesVisitor implements PlaylistVisitor {
 
-	private final List<String> nomes = new ArrayList<>();
+    private final List<String> nomes = new ArrayList<>();
 
-	public List<String> getNomes() {
+    public List<String> getNomes() {
+        return nomes;
+    }
 
-		return nomes;
-	}
+    @Override
+    public void visit(Filme filme) {
+        nomes.add(filme.getTitulo());
+    }
 
-	@Override
-	public void visit(Filme filme) {
-		
-		nomes.add(filme.getTitulo());
-	}
+    @Override
+    public void visit(Episodio episodio) {
+        nomes.add(episodio.getTitulo());
+    }
 
-	@Override
-	public void visit(Episodio episodio) {
-		
-		nomes.add(episodio.getTitulo());
-	}
+    @Override
+    public void visit(Serie serie) {
+        nomes.add(serie.getTitulo());
+    }
 
-	@Override
-	public void visit(Serie serie) {
-		
-		nomes.add(serie.getTitulo());
-	}
+    @Override
+    public void visit(Pacote pacote) {
+        nomes.add(pacote.getTitulo());
+    }
 
-	@Override
-	public void visit(Pacote pacote) {
-		
-		nomes.add(pacote.getTitulo());
-	}
+    @Override
+    public void visit(MP3 mp3) {
+        nomes.add(mp3.getNome());
+    }
 
-	@Override
-	public void visit(MP3 mp3) {
-		
-		nomes.add(mp3.getNome());
-	}
-
-	@Override
-	public void visit(Video video) {
-		
-		nomes.add(video.getNome());
-	}
+    @Override
+    public void visit(Video video) {
+        nomes.add(video.getNome());
+    }
 }
